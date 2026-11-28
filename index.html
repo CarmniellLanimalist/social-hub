@@ -399,6 +399,26 @@ html[data-theme="christmas"] #ring.hov i{transform:scale(1.5)}
   html:not(.force-motion) #boot{display:none}
   html:not(.force-motion){scroll-behavior:auto}
 }
+
+/* ------------------------------ pulsante "Invia il link" (menu di condivisione del telefono) ------------------------------ */
+.sharewrap{margin:26px 0 6px}
+.sharewrap .meta{color:var(--text); font-weight:600; max-width:520px; margin:14px auto 0}
+.share{
+  position:relative; overflow:hidden; font:inherit; font-family:var(--fd); font-weight:900; letter-spacing:.08em; font-size:clamp(1.15rem,4.6vw,1.5rem); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center; gap:.6em; min-height:60px; padding:16px clamp(26px,7vw,48px);
+  color:var(--btn-text); text-shadow:var(--btn-shadow);
+  background:linear-gradient(90deg,var(--a3),var(--a1),var(--a2),var(--a3)); background-size:300% 100%;
+  border:3px solid rgba(255,255,255,.55); border-radius:calc(var(--rad) + 8px);
+  box-shadow:0 0 34px var(--glow), 0 6px 0 rgba(0,0,0,.28); -webkit-tap-highlight-color:transparent;
+  animation:slide 4s linear infinite, pulse 1.8s ease-in-out infinite;
+  transition:transform .15s;
+}
+.share::after{content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent); transform:skewX(-20deg); animation:shine 3.2s ease-in-out infinite; pointer-events:none}
+html[data-theme="game"] .share,html[data-theme="metal"] .share,html[data-theme="retro"] .share,html[data-theme="gameboy"] .share{border-radius:var(--rad)}
+.share:hover{transform:translateY(-3px) scale(1.05)}
+.share:active{transform:translateY(1px) scale(.97)}
+.share:focus-visible{outline:3px solid #fff; outline-offset:4px}
+.share svg{width:1.3em; height:1.3em; flex:none; stroke-width:2.6}
 </style>
 <noscript><style>.reveal{opacity:1;transform:none} #boot{display:none}</style></noscript>
 </head>
@@ -450,6 +470,13 @@ html[data-theme="christmas"] #ring.hov i{transform:scale(1.5)}
         <span class="dl-main"><span class="dl-arrow" aria-hidden="true">⬇</span> <span data-i="dl_main">SCARICA SOCIAL-HUB</span></span>
         <small data-i="dl_small">GRATIS · WINDOWS 10/11 · V0.8.5</small>
       </a>
+    </div>
+    <div class="sharewrap">
+      <button type="button" class="share" id="shareBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+        <span data-i="share_btn">Invia il link</span>
+      </button>
+      <p class="meta" data-i="share_hint">📱 Sei sul telefono? SOCIAL-HUB è per Windows: mandati il link (o passalo a un amico) e scaricalo dal PC.</p>
     </div>
     <p class="meta" data-i="meta_install">Prima di installare dai un'occhiata a <a href="#installa">Come si installa</a>: Windows potrebbe mostrarti una schermata blu. Tranquillo, ti spiego tutto!</p>
     <p class="meta"><span data-i="meta_dl">Problemi con il download?</span> <a data-i="meta_alt" href="https://sourceforge.net/projects/social-hub/files/0.8.5/SocialHubApp-win-Setup.exe/download" rel="noopener">Link alternativo (SourceForge)</a></p>
@@ -708,6 +735,8 @@ var LABEL = {facebook:"Facebook",messenger:"Messenger",instagram:"Instagram",thr
 var EN = {
  "dl_main": "DOWNLOAD SOCIAL-HUB",
  "dl_small": "FREE · WINDOWS 10/11 · V0.8.5",
+ "share_btn": "Send the link",
+ "share_hint": "📱 On your phone? SOCIAL-HUB is for Windows: send yourself the link (or pass it to a friend) and download it from your PC.",
  "meta_dl": "Trouble with the download?",
  "meta_alt": "Alternative link (SourceForge)",
  "li_hash": "<b>Check the file</b> (optional): open PowerShell in the download folder and type <code>Get-FileHash .\\SocialHubApp-win-Setup.exe</code>. The result must match this SHA-256 code (without «sha256:» in front; upper or lower case doesn't matter):",
@@ -849,12 +878,14 @@ var EN = {
 };
 var S = {
   it:{ tagline:"Tutti i tuoi social, in un posto solo.", boot:['LOADING...','ACCENDO IL NEON...','CARICO 18 SOCIAL...','PRESS START'],
+       shTitle:'SOCIAL-HUB', shText:'SOCIAL-HUB: tutti i tuoi social in un posto solo (app gratuita per Windows)', shCopied:'Link copiato! Ora incollalo dove vuoi 📋', shManual:'Copia questo link:',
        motYes:'✨ Animazioni: SÌ', motNo:'✨ Animazioni: NO', motOn:'Animazioni attivate ✨', motOff:'Animazioni spente',
        dl:'Download avviato! Se Windows mostra la schermata blu, vai a «Come si installa» 👇', game:'🕹️ Videogame', xmas:'🎄 Natale',
        title:'SOCIAL-HUB – Tutti i tuoi social in un posto solo (app gratuita per Windows)',
        desc:"SOCIAL-HUB è un'app gratuita per Windows che riunisce 18 social in una sola finestra: account multipli, temi grafici, PIN e calendario dei post.",
        aNav:'Sezioni', aThemes:'Scegli il tema della pagina', aMock:'Anteprima illustrata di SOCIAL-HUB', aTag:'Tutti i tuoi social, in un posto solo.' },
   en:{ tagline:"All your social networks, in one place.", boot:['LOADING...','LIGHTING UP THE NEON...','LOADING 18 SOCIAL NETWORKS...','PRESS START'],
+       shTitle:'SOCIAL-HUB', shText:'SOCIAL-HUB: all your social networks in one place (free app for Windows)', shCopied:'Link copied! Now paste it wherever you like 📋', shManual:'Copy this link:',
        motYes:'✨ Animations: ON', motNo:'✨ Animations: OFF', motOn:'Animations on ✨', motOff:'Animations off',
        dl:'Download started! If Windows shows the blue screen, go to «How to install» 👇', game:'🕹️ Video Game', xmas:'🎄 Christmas',
        title:'SOCIAL-HUB – All your social networks in one place (free app for Windows)',
@@ -1277,6 +1308,33 @@ function initDownload(){
   });
 }
 
+function initShare(){
+  var b = $('shareBtn'); if(!b) return;
+  function pageUrl(){
+    var c = document.querySelector('link[rel="canonical"]');
+    return (c && c.href) ? c.href : (location.origin + location.pathname);   // link pulito, senza ?lang= e senza #
+  }
+  function copyFallback(url){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){ toast(s('shCopied')); }, function(){ window.prompt(s('shManual'), url); });
+    } else {
+      window.prompt(s('shManual'), url);
+    }
+  }
+  b.addEventListener('click', function(){
+    var url = pageUrl();
+    if(navigator.share){
+      // menu di condivisione nativo: Android (Chrome, Samsung Internet...) e iOS (Safari, Chrome)
+      navigator.share({ title: s('shTitle'), text: s('shText'), url: url }).catch(function(err){
+        if(err && err.name === 'AbortError') return;   // ha chiuso il menu: nessun messaggio
+        copyFallback(url);
+      });
+    } else {
+      copyFallback(url);                               // PC o browser senza share: copio il link
+    }
+  });
+}
+
 function initReveal(){
   var els = document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)){ Array.prototype.forEach.call(els, function(e){ e.classList.add('in'); }); return; }
@@ -1309,6 +1367,7 @@ fillIcons(false);
 resize();
 window.addEventListener('resize', resize);
 initDownload();
+initShare();
 initReveal();
 initCursor();
 initBoot();
